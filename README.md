@@ -1,16 +1,77 @@
-# React + Vite
+# ⏰ Pomodoro Timer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A beautiful, feature-rich Pomodoro Timer app built with React + Vite.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### ⏱ Timer
+- 🍅 **Pomodoro** — 25 minute focus sessions
+- ☕ **Short Break** — 5 minute breaks
+- 🌊 **Long Break** — 15 minute breaks
+- 🔄 **Reset & Skip** buttons
+- 🔔 **Sound alert** when timer ends
+- 🔇 **Mute toggle** for sound
 
-## React Compiler
+### 📊 Stats
+- ✅ **Sessions counter** — tracks completed pomodoros
+- ⏱ **Total focus time** — minutes spent focusing
+- 🎯 **Sets counter** — every 4 sessions = 1 set
+- 🔴 **Progress dots** — visual session progress
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 📋 Tasks
+- ➕ Add tasks to work on during sessions
+- ✅ Check off completed tasks
+- 🗑️ Delete tasks
+- ⌨️ Press Enter to add quickly
 
-## Expanding the ESLint configuration
+### 🎨 UI
+- 🌙 Beautiful dark theme
+- 🎨 Color changes per mode (red/green/blue)
+- ⭕ Animated circular progress ring
+- 💫 Smooth animations
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🚀 Live Demo
+
+👉 [Coming soon on Vercel]
+
+## 🛠 Tech Stack
+
+- [React](https://react.dev/) — UI library
+- [Vite](https://vitejs.dev/) — lightning-fast bundler
+- Web Audio API — for sound alerts
+- CSS Variables — for dynamic theming
+
+## 📦 Getting Started
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+```
+
+## 🎮 How to Use
+
+1. Click **▶** to start the 25 minute focus timer
+2. Work until the timer ends 🔔
+3. Take a **Short Break** (5 min)
+4. Repeat 4 times then take a **Long Break** (15 min)
+5. Track your tasks in the **📋 Tasks** panel
+6. Watch your stats grow! 📊
+
+## 📁 Project Structure
+pomodoro/
+├── src/
+│   ├── App.jsx      # Main component & timer logic
+│   ├── App.css      # Styles & animations
+│   └── main.jsx     # Entry point
+├── index.html
+└── package.json
+
+## 📄 License
+
+MIT
