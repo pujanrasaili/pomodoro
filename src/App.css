@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh; font-family: 'Inter', sans-serif;
+  background: #0f0e0c; color: #fff;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.app {
+  min-height: 100vh; width: 100%;
+  display: flex; align-items: center; justify-content: center;
+  padding: 1rem;
+  background: radial-gradient(ellipse at top, rgba(233,69,96,0.15), #0f0e0c);
+  transition: background 0.5s;
+}
+
+.container {
+  width: 100%; max-width: 420px;
+  display: flex; flex-direction: column; align-items: center; gap: 1.25rem;
+  animation: fadeUp 0.4s ease;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+header {
+  width: 100%; display: flex; justify-content: space-between; align-items: center;
+}
+
+h1 { font-size: 1.5rem; font-weight: 700; }
+
+.header-controls { display: flex; gap: 0.5rem; }
+
+.icon-btn {
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px; width: 38px; height: 38px; font-size: 1rem;
+  cursor: pointer; transition: background 0.2s; color: #fff;
+}
+.icon-btn:hover { background: rgba(255,255,255,0.15); }
+.icon-btn.active { background: var(--accent); border-color: var(--accent); }
+
+.mode-tabs {
+  display: flex; gap: 0.5rem; background: rgba(255,255,255,0.05);
+  border-radius: 14px; padding: 0.35rem;
+}
+
+.mode-tab {
+  padding: 0.5rem 1rem; border: none; border-radius: 10px;
+  background: transparent; color: rgba(255,255,255,0.5);
+  font-family: 'Inter', sans-serif; font-size: 0.82rem; font-weight: 600;
+  cursor: pointer; transition: all 0.2s;
+}
+.mode-tab:hover { color: #fff; }
+.mode-tab.active { background: var(--tab-color); color: #fff; }
+
+.timer-wrap {
+  position: relative; width: 280px; height: 280px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.timer-ring {
+  position: absolute; top: 0; left: 0;
+  transform: rotate(-90deg); width: 100%; height: 100%;
+}
+
+.ring-bg { fill: none; stroke: rgba(255,255,255,0.06); stroke-width: 8; }
+.ring-progress {
+  fill: none; stroke-width: 8; stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s ease, stroke 0.5s ease;
+}
+
+.timer-content { text-align: center; z-index: 1; }
+.timer-display { font-size: 4rem; font-weight: 300; letter-spacing: -2px; line-height: 1; }
+.timer-mode { font-size: 0.85rem; color: rgba(255,255,255,0.4); margin-top: 0.5rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
+
+.controls { display: flex; align-items: center; gap: 1.25rem; }
+
+.ctrl-round {
+  width: 48px; height: 48px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.15);
+  background: transparent; color: #fff; font-size: 1.2rem;
+  cursor: pointer; transition: all 0.2s;
+}
+.ctrl-round:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.3); }
+
+.play-btn {
+  width: 72px; height: 72px; border-radius: 50%; border: none;
+  color: #fff; font-size: 1.5rem; cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  transition: transform 0.2s, opacity 0.2s;
+}
+.play-btn:hover { transform: scale(1.08); opacity: 0.9; }
+.play-btn:active { transform: scale(0.96); }
+
+.stats-row {
+  display: flex; gap: 1rem; width: 100%;
+}
+
+.stat {
+  flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px; padding: 0.85rem; text-align: center;
+}
+.stat-val { display: block; font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+.stat-label { font-size: 0.72rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.5px; }
+
+.pomodoro-dots { display: flex; gap: 0.6rem; }
+.dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.2);
+  transition: background 0.3s;
+}
+.dot.filled { border-color: transparent; }
+
+.tasks-panel {
+  width: 100%; background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08); border-radius: 18px;
+  padding: 1.25rem; animation: slideDown 0.2s ease;
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.tasks-panel h3 { font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-bottom: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
+
+.task-input-row { display: flex; gap: 0.5rem; margin-bottom: 0.85rem; }
+
+.task-input {
+  flex: 1; padding: 0.75rem 1rem; background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
+  color: #fff; font-family: 'Inter', sans-serif; font-size: 0.9rem; outline: none;
+  transition: border 0.2s;
+}
+.task-input:focus { border-color: var(--accent); }
+.task-input::placeholder { color: rgba(255,255,255,0.25); }
+
+.task-add-btn {
+  width: 42px; height: 42px; border: none; border-radius: 10px;
+  color: #fff; font-size: 1.3rem; cursor: pointer; transition: opacity 0.2s;
+}
+.task-add-btn:hover { opacity: 0.85; }
+
+.task-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+.task-empty { text-align: center; color: rgba(255,255,255,0.25); font-size: 0.85rem; padding: 1rem; }
+
+.task-item {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.65rem 0.5rem; border-radius: 8px; transition: background 0.15s;
+}
+.task-item:hover { background: rgba(255,255,255,0.04); }
+
+.task-check {
+  width: 22px; height: 22px; border-radius: 6px; border: 1.5px solid;
+  background: transparent; color: #fff; font-size: 0.7rem;
+  cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+
+.task-text { flex: 1; font-size: 0.9rem; transition: all 0.2s; }
+.task-item.done .task-text { text-decoration: line-through; color: rgba(255,255,255,0.3); }
+
+.task-delete {
+  background: transparent; border: none; color: rgba(255,255,255,0.2);
+  font-size: 0.75rem; cursor: pointer; opacity: 0; transition: opacity 0.2s, color 0.2s;
+}
+.task-item:hover .task-delete { opacity: 1; }
+.task-delete:hover { color: #e74c3c; }
