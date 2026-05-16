@@ -4,7 +4,14 @@ import "./App.css";
 const MODES = {
   pomodoro: { label: "Pomodoro", time: 25 * 60, color: "#e94560" },
   short: { label: "Short Break", time: 5 * 60, color: "#2dc653" },
-  long: { label: "Long Break", time: "#00b4d8", time: 15 * 60, color: "#00b4d8" },
+  long: { label: "Long Break", time: 15 * 60, color: "#00b4d8" },
+};
+
+const THEMES = {
+  dark:   { label: "🌙 Dark",   bg: "#0f0e0c", surface: "rgba(255,255,255,0.05)", text: "#fff", muted: "rgba(255,255,255,0.4)", border: "rgba(255,255,255,0.08)", glow: "rgba(233,69,96,0.15)" },
+  light:  { label: "☀️ Light",  bg: "#f5f5f0", surface: "rgba(0,0,0,0.05)", text: "#111", muted: "rgba(0,0,0,0.4)", border: "rgba(0,0,0,0.08)", glow: "rgba(233,69,96,0.08)" },
+  forest: { label: "🌿 Forest", bg: "#0d1f0d", surface: "rgba(255,255,255,0.06)", text: "#e8f5e8", muted: "rgba(200,240,200,0.4)", border: "rgba(100,200,100,0.12)", glow: "rgba(45,198,83,0.15)" },
+  ocean:  { label: "🌊 Ocean",  bg: "#0a0f1e", surface: "rgba(255,255,255,0.05)", text: "#e0f0ff", muted: "rgba(150,200,255,0.4)", border: "rgba(0,180,216,0.15)", glow: "rgba(0,180,216,0.15)" },
 };
 
 const SOUNDS = {
@@ -31,10 +38,13 @@ export default function App() {
   const [tasks, setTasks] = useState([]);
   const [taskInput, setTaskInput] = useState("");
   const [showTasks, setShowTasks] = useState(false);
+  const [theme, setTheme] = useState("dark");
+  const [showThemes, setShowThemes] = useState(false);
   const intervalRef = useRef(null);
   const startTimeRef = useRef(null);
 
   const currentMode = MODES[mode];
+  const currentTheme = THEMES[theme];
   const totalTime = currentMode.time;
   const progress = ((totalTime - timeLeft) / totalTime) * 100;
 
@@ -64,16 +74,13 @@ export default function App() {
   }, [running]);
 
   const switchMode = (m) => {
-    setMode(m);
-    setTimeLeft(MODES[m].time);
-    setRunning(false);
-    clearInterval(intervalRef.current);
+    setMode(m); setTimeLeft(MODES[m].time);
+    setRunning(false); clearInterval(intervalRef.current);
   };
 
   const reset = () => {
     setTimeLeft(currentMode.time);
-    setRunning(false);
-    clearInterval(intervalRef.current);
+    setRunning(false); clearInterval(intervalRef.current);
   };
 
   const format = (s) => `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
@@ -91,15 +98,37 @@ export default function App() {
   const strokeDash = circumference - (progress / 100) * circumference;
 
   return (
-    <div className="app" style={{ "--accent": currentMode.color }}>
+    <div className="app" style={{
+      "--accent": currentMode.color,
+      "--bg": currentTheme.bg,
+      "--surface": currentTheme.surface,
+      "--text": currentTheme.text,
+      "--muted": currentTheme.muted,
+      "--border": currentTheme.border,
+      "--glow": currentTheme.glow,
+      background: `radial-gradient(ellipse at top, ${currentTheme.glow}, ${currentTheme.bg})`,
+      color: currentTheme.text,
+    }}>
       <div className="container">
         <header>
           <h1>🍅 Pomodoro</h1>
           <div className="header-controls">
             <button className="icon-btn" onClick={() => setSoundOn(s => !s)}>{soundOn ? "🔊" : "🔇"}</button>
+            <button className={`icon-btn ${showThemes ? "active" : ""}`} onClick={() => setShowThemes(s => !s)}>🎨</button>
             <button className={`icon-btn ${showTasks ? "active" : ""}`} onClick={() => setShowTasks(s => !s)}>📋</button>
           </div>
         </header>
+
+        {showThemes && (
+          <div className="themes-panel">
+            {Object.entries(THEMES).map(([key, val]) => (
+              <button key={key} className={`theme-btn ${theme === key ? "active" : ""}`}
+                onClick={() => { setTheme(key); setShowThemes(false); }}>
+                {val.label}
+              </button>
+            ))}
+          </div>
+        )}
 
         <div className="mode-tabs">
           {Object.entries(MODES).map(([key, val]) => (
