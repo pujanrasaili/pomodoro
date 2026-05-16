@@ -12,6 +12,12 @@ A beautiful, feature-rich Pomodoro Timer app built with React + Vite.
 - 🔔 **Sound alert** when timer ends
 - 🔇 **Mute toggle** for sound
 
+### 🎨 Themes
+- 🌙 **Dark** — classic dark theme
+- ☀️ **Light** — clean light theme
+- 🌿 **Forest** — deep green theme
+- 🌊 **Ocean** — deep blue theme
+
 ### 📊 Stats
 - ✅ **Sessions counter** — tracks completed pomodoros
 - ⏱ **Total focus time** — minutes spent focusing
@@ -25,14 +31,14 @@ A beautiful, feature-rich Pomodoro Timer app built with React + Vite.
 - ⌨️ Press Enter to add quickly
 
 ### 🎨 UI
-- 🌙 Beautiful dark theme
+- 🎨 4 beautiful themes
 - 🎨 Color changes per mode (red/green/blue)
 - ⭕ Animated circular progress ring
-- 💫 Smooth animations
+- 💫 Smooth animations & transitions
 
 ## 🚀 Live Demo
 
-👉 [Coming soon on Vercel]
+👉 [Your Vercel URL here]
 
 ## 🛠 Tech Stack
 
@@ -56,18 +62,28 @@ npm run build
 
 ## 🎮 How to Use
 
-1. Click **▶** to start the 25 minute focus timer
-2. Work until the timer ends 🔔
-3. Take a **Short Break** (5 min)
-4. Repeat 4 times then take a **Long Break** (15 min)
-5. Track your tasks in the **📋 Tasks** panel
-6. Watch your stats grow! 📊
+1. Click **🎨** to pick your favorite theme
+2. Click **▶** to start the 25 minute focus timer
+3. Work until the timer ends 🔔
+4. Take a **Short Break** (5 min)
+5. Repeat 4 times then take a **Long Break** (15 min)
+6. Track your tasks in the **📋 Tasks** panel
+7. Watch your stats grow! 📊
+
+## 🎨 Themes
+
+| Theme | Style |
+|-------|-------|
+| 🌙 Dark | Classic dark background |
+| ☀️ Light | Clean white background |
+| 🌿 Forest | Deep green nature feel |
+| 🌊 Ocean | Deep blue ocean feel |
 
 ## 📁 Project Structure
 pomodoro/
 ├── src/
 │   ├── App.jsx      # Main component & timer logic
-│   ├── App.css      # Styles & animations
+│   ├── App.css      # Styles & themes
 │   └── main.jsx     # Entry point
 ├── index.html
 └── package.json
