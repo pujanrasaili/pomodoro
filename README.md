@@ -12,6 +12,14 @@ A beautiful, feature-rich Pomodoro Timer app built with React + Vite.
 - 🔔 **Sound alert** when timer ends
 - 🔇 **Mute toggle** for sound
 
+### 🎯 Daily Goal Tracker
+- 🎯 **Set daily session goal** — decide how many sessions to complete
+- 📊 **Progress bar** with percentage
+- 🔴 **Goal dots** — visual progress tracking
+- ✅ **Goal reached celebration** when you hit your target
+- 📍 **Mini goal bar** always visible
+- 💾 **Saves to localStorage** — persists across refreshes
+
 ### ⚙️ Custom Settings
 - ✏️ **Change durations** for all 3 modes
 - ➕➖ **Step buttons** to increase/decrease easily
@@ -52,6 +60,7 @@ A beautiful, feature-rich Pomodoro Timer app built with React + Vite.
 - [Vite](https://vitejs.dev/) — lightning-fast bundler
 - Web Audio API — for sound alerts
 - CSS Variables — for dynamic theming
+- localStorage — for goal persistence
 
 ## 📦 Getting Started
 
@@ -68,14 +77,15 @@ npm run build
 
 ## 🎮 How to Use
 
-1. Click **⚙️** to customize timer durations
-2. Click **🎨** to pick your favorite theme
-3. Click **▶** to start the timer
-4. Work until the timer ends 🔔
-5. Take a **Short Break** (5 min)
-6. Repeat 4 times then take a **Long Break** (15 min)
-7. Track your tasks in the **📋 Tasks** panel
-8. Watch your stats grow! 📊
+1. Click **🎯** to set your daily session goal
+2. Click **⚙️** to customize timer durations
+3. Click **🎨** to pick your favorite theme
+4. Click **▶** to start the timer
+5. Work until the timer ends 🔔
+6. Take a **Short Break** (5 min)
+7. Repeat 4 times then take a **Long Break** (15 min)
+8. Track your tasks in the **📋 Tasks** panel
+9. Watch your daily goal progress! 🎯
 
 ## ⚙️ Default Timer Settings
 
@@ -95,6 +105,7 @@ npm run build
 | 🌊 Ocean | Deep blue ocean feel |
 
 ## 📁 Project Structure
+
 pomodoro/
 ├── src/
 │   ├── App.jsx      # Main component & timer logic
