@@ -1,11 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import "./App.css";
 
-const MODES = {
-  pomodoro: { label: "Pomodoro", time: 25 * 60, color: "#e94560" },
-  short: { label: "Short Break", time: 5 * 60, color: "#2dc653" },
-  long: { label: "Long Break", time: 15 * 60, color: "#00b4d8" },
-};
+const DEFAULT_TIMES = { pomodoro: 25, short: 5, long: 15 };
 
 const THEMES = {
   dark:   { label: "🌙 Dark",   bg: "#0f0e0c", surface: "rgba(255,255,255,0.05)", text: "#fff", muted: "rgba(255,255,255,0.4)", border: "rgba(255,255,255,0.08)", glow: "rgba(233,69,96,0.15)" },
@@ -30,7 +26,8 @@ const SOUNDS = {
 
 export default function App() {
   const [mode, setMode] = useState("pomodoro");
-  const [timeLeft, setTimeLeft] = useState(MODES.pomodoro.time);
+  const [customTimes, setCustomTimes] = useState(DEFAULT_TIMES);
+  const [timeLeft, setTimeLeft] = useState(DEFAULT_TIMES.pomodoro * 60);
   const [running, setRunning] = useState(false);
   const [sessions, setSessions] = useState(0);
   const [totalFocus, setTotalFocus] = useState(0);
@@ -40,8 +37,16 @@ export default function App() {
   const [showTasks, setShowTasks] = useState(false);
   const [theme, setTheme] = useState("dark");
   const [showThemes, setShowThemes] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+  const [settingInputs, setSettingInputs] = useState(DEFAULT_TIMES);
   const intervalRef = useRef(null);
   const startTimeRef = useRef(null);
+
+  const MODES = {
+    pomodoro: { label: "Pomodoro", time: customTimes.pomodoro * 60, color: "#e94560" },
+    short:    { label: "Short Break", time: customTimes.short * 60, color: "#2dc653" },
+    long:     { label: "Long Break", time: customTimes.long * 60, color: "#00b4d8" },
+  };
 
   const currentMode = MODES[mode];
   const currentTheme = THEMES[theme];
@@ -56,20 +61,12 @@ export default function App() {
         const remaining = totalTime - elapsed;
         if (remaining <= 0) {
           clearInterval(intervalRef.current);
-          setRunning(false);
-          setTimeLeft(0);
+          setRunning(false); setTimeLeft(0);
           if (soundOn) try { SOUNDS.bell(); } catch(e) {}
-          if (mode === "pomodoro") {
-            setSessions(s => s + 1);
-            setTotalFocus(f => f + totalTime);
-          }
-        } else {
-          setTimeLeft(remaining);
-        }
+          if (mode === "pomodoro") { setSessions(s => s + 1); setTotalFocus(f => f + totalTime); }
+        } else { setTimeLeft(remaining); }
       }, 500);
-    } else {
-      clearInterval(intervalRef.current);
-    }
+    } else { clearInterval(intervalRef.current); }
     return () => clearInterval(intervalRef.current);
   }, [running]);
 
@@ -78,9 +75,25 @@ export default function App() {
     setRunning(false); clearInterval(intervalRef.current);
   };
 
-  const reset = () => {
-    setTimeLeft(currentMode.time);
+  const reset = () => { setTimeLeft(currentMode.time); setRunning(false); clearInterval(intervalRef.current); };
+
+  const applySettings = () => {
+    const p = Math.max(1, Math.min(99, parseInt(settingInputs.pomodoro) || 25));
+    const s = Math.max(1, Math.min(99, parseInt(settingInputs.short) || 5));
+    const l = Math.max(1, Math.min(99, parseInt(settingInputs.long) || 15));
+    const newTimes = { pomodoro: p, short: s, long: l };
+    setCustomTimes(newTimes);
+    setTimeLeft(newTimes[mode] * 60);
     setRunning(false); clearInterval(intervalRef.current);
+    setShowSettings(false);
+  };
+
+  const resetSettings = () => {
+    setSettingInputs(DEFAULT_TIMES);
+    setCustomTimes(DEFAULT_TIMES);
+    setTimeLeft(DEFAULT_TIMES[mode] * 60);
+    setRunning(false); clearInterval(intervalRef.current);
+    setShowSettings(false);
   };
 
   const format = (s) => `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
@@ -90,7 +103,6 @@ export default function App() {
     setTasks(t => [...t, { id: Date.now(), text: taskInput.trim(), done: false }]);
     setTaskInput("");
   };
-
   const toggleTask = (id) => setTasks(t => t.map(task => task.id === id ? { ...task, done: !task.done } : task));
   const deleteTask = (id) => setTasks(t => t.filter(task => task.id !== id));
 
@@ -114,10 +126,53 @@ export default function App() {
           <h1>🍅 Pomodoro</h1>
           <div className="header-controls">
             <button className="icon-btn" onClick={() => setSoundOn(s => !s)}>{soundOn ? "🔊" : "🔇"}</button>
-            <button className={`icon-btn ${showThemes ? "active" : ""}`} onClick={() => setShowThemes(s => !s)}>🎨</button>
-            <button className={`icon-btn ${showTasks ? "active" : ""}`} onClick={() => setShowTasks(s => !s)}>📋</button>
+            <button className={`icon-btn ${showSettings ? "active" : ""}`} onClick={() => { setShowSettings(s => !s); setShowThemes(false); setShowTasks(false); }}>⚙️</button>
+            <button className={`icon-btn ${showThemes ? "active" : ""}`} onClick={() => { setShowThemes(s => !s); setShowSettings(false); setShowTasks(false); }}>🎨</button>
+            <button className={`icon-btn ${showTasks ? "active" : ""}`} onClick={() => { setShowTasks(s => !s); setShowSettings(false); setShowThemes(false); }}>📋</button>
           </div>
         </header>
+
+        {showSettings && (
+          <div className="settings-panel">
+            <h3>⚙️ Timer Settings (minutes)</h3>
+            <div className="settings-grid">
+              <div className="setting-item">
+                <label>🍅 Pomodoro</label>
+                <div className="setting-input-row">
+                  <button className="setting-step" onClick={() => setSettingInputs(s => ({ ...s, pomodoro: Math.max(1, (parseInt(s.pomodoro) || 25) - 1) }))}>−</button>
+                  <input className="setting-input" type="number" min="1" max="99"
+                    value={settingInputs.pomodoro}
+                    onChange={(e) => setSettingInputs(s => ({ ...s, pomodoro: e.target.value }))} />
+                  <button className="setting-step" onClick={() => setSettingInputs(s => ({ ...s, pomodoro: Math.min(99, (parseInt(s.pomodoro) || 25) + 1) }))}>+</button>
+                </div>
+              </div>
+              <div className="setting-item">
+                <label>☕ Short Break</label>
+                <div className="setting-input-row">
+                  <button className="setting-step" onClick={() => setSettingInputs(s => ({ ...s, short: Math.max(1, (parseInt(s.short) || 5) - 1) }))}>−</button>
+                  <input className="setting-input" type="number" min="1" max="99"
+                    value={settingInputs.short}
+                    onChange={(e) => setSettingInputs(s => ({ ...s, short: e.target.value }))} />
+                  <button className="setting-step" onClick={() => setSettingInputs(s => ({ ...s, short: Math.min(99, (parseInt(s.short) || 5) + 1) }))}>+</button>
+                </div>
+              </div>
+              <div className="setting-item">
+                <label>🌊 Long Break</label>
+                <div className="setting-input-row">
+                  <button className="setting-step" onClick={() => setSettingInputs(s => ({ ...s, long: Math.max(1, (parseInt(s.long) || 15) - 1) }))}>−</button>
+                  <input className="setting-input" type="number" min="1" max="99"
+                    value={settingInputs.long}
+                    onChange={(e) => setSettingInputs(s => ({ ...s, long: e.target.value }))} />
+                  <button className="setting-step" onClick={() => setSettingInputs(s => ({ ...s, long: Math.min(99, (parseInt(s.long) || 15) + 1) }))}>+</button>
+                </div>
+              </div>
+            </div>
+            <div className="settings-btns">
+              <button className="settings-apply" style={{ background: currentMode.color }} onClick={applySettings}>✅ Apply</button>
+              <button className="settings-reset" onClick={resetSettings}>↺ Reset to Default</button>
+            </div>
+          </div>
+        )}
 
         {showThemes && (
           <div className="themes-panel">
@@ -147,13 +202,13 @@ export default function App() {
           <div className="timer-content">
             <div className="timer-display">{format(timeLeft)}</div>
             <div className="timer-mode">{currentMode.label}</div>
+            <div className="timer-total">{customTimes[mode]}:00 total</div>
           </div>
         </div>
 
         <div className="controls">
           <button className="ctrl-round" onClick={reset} title="Reset">↺</button>
-          <button className="play-btn" onClick={() => setRunning(r => !r)}
-            style={{ background: currentMode.color }}>
+          <button className="play-btn" onClick={() => setRunning(r => !r)} style={{ background: currentMode.color }}>
             {running ? "⏸" : "▶"}
           </button>
           <button className="ctrl-round" onClick={() => switchMode(

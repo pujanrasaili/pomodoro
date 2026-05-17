@@ -1,81 +1,57 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
+body { min-height: 100vh; font-family: 'Inter', sans-serif; display: flex; align-items: center; justify-content: center; }
 
-body {
-  min-height: 100vh; font-family: 'Inter', sans-serif;
-  display: flex; align-items: center; justify-content: center;
-}
+.app { min-height: 100vh; width: 100%; display: flex; align-items: center; justify-content: center; padding: 1rem; transition: background 0.5s, color 0.3s; }
 
-.app {
-  min-height: 100vh; width: 100%;
-  display: flex; align-items: center; justify-content: center;
-  padding: 1rem; transition: background 0.5s, color 0.3s;
-}
+.container { width: 100%; max-width: 420px; display: flex; flex-direction: column; align-items: center; gap: 1.25rem; animation: fadeUp 0.4s ease; }
 
-.container {
-  width: 100%; max-width: 420px;
-  display: flex; flex-direction: column; align-items: center; gap: 1.25rem;
-  animation: fadeUp 0.4s ease;
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
 
 header { width: 100%; display: flex; justify-content: space-between; align-items: center; }
 h1 { font-size: 1.5rem; font-weight: 700; color: var(--text); }
 .header-controls { display: flex; gap: 0.5rem; }
 
-.icon-btn {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 10px; width: 38px; height: 38px; font-size: 1rem;
-  cursor: pointer; transition: background 0.2s; color: var(--text);
-}
+.icon-btn { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; width: 38px; height: 38px; font-size: 1rem; cursor: pointer; transition: background 0.2s; color: var(--text); }
 .icon-btn:hover { opacity: 0.8; }
 .icon-btn.active { background: var(--accent); border-color: var(--accent); }
 
-/* THEMES PANEL */
-.themes-panel {
-  display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center;
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 14px; padding: 0.75rem; width: 100%;
-  animation: slideDown 0.2s ease;
-}
-@keyframes slideDown {
-  from { opacity: 0; transform: translateY(-8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
+/* SETTINGS */
+.settings-panel { width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 1.25rem; animation: slideDown 0.2s ease; }
+.settings-panel h3 { font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.5px; }
 
-.theme-btn {
-  padding: 0.5rem 1rem; border: 1.5px solid var(--border);
-  border-radius: 10px; background: transparent; color: var(--text);
-  font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 600;
-  cursor: pointer; transition: all 0.2s;
-}
+.settings-grid { display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 1rem; }
+.setting-item { display: flex; justify-content: space-between; align-items: center; }
+.setting-item label { font-size: 0.9rem; color: var(--text); font-weight: 500; }
+
+.setting-input-row { display: flex; align-items: center; gap: 0.5rem; }
+.setting-step { width: 32px; height: 32px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text); font-size: 1.1rem; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+.setting-step:hover { border-color: var(--accent); color: var(--accent); }
+
+.setting-input { width: 56px; text-align: center; padding: 0.4rem; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 600; outline: none; }
+.setting-input:focus { border-color: var(--accent); }
+.setting-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+.settings-btns { display: flex; gap: 0.5rem; }
+.settings-apply { flex: 1; padding: 0.75rem; border: none; border-radius: 12px; color: #fff; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: opacity 0.2s; }
+.settings-apply:hover { opacity: 0.85; }
+.settings-reset { flex: 1; padding: 0.75rem; border: 1px solid var(--border); border-radius: 12px; background: transparent; color: var(--muted); font-family: 'Inter', sans-serif; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; }
+.settings-reset:hover { border-color: var(--accent); color: var(--text); }
+
+/* THEMES */
+.themes-panel { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 0.75rem; width: 100%; animation: slideDown 0.2s ease; }
+.theme-btn { padding: 0.5rem 1rem; border: 1.5px solid var(--border); border-radius: 10px; background: transparent; color: var(--text); font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
 .theme-btn:hover { border-color: var(--accent); }
 .theme-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
 
-.mode-tabs {
-  display: flex; gap: 0.5rem; background: var(--surface);
-  border-radius: 14px; padding: 0.35rem; border: 1px solid var(--border);
-}
-
-.mode-tab {
-  padding: 0.5rem 1rem; border: none; border-radius: 10px;
-  background: transparent; color: var(--muted);
-  font-family: 'Inter', sans-serif; font-size: 0.82rem; font-weight: 600;
-  cursor: pointer; transition: all 0.2s;
-}
+.mode-tabs { display: flex; gap: 0.5rem; background: var(--surface); border-radius: 14px; padding: 0.35rem; border: 1px solid var(--border); }
+.mode-tab { padding: 0.5rem 1rem; border: none; border-radius: 10px; background: transparent; color: var(--muted); font-family: 'Inter', sans-serif; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
 .mode-tab:hover { color: var(--text); }
 .mode-tab.active { background: var(--tab-color); color: #fff; }
 
-.timer-wrap {
-  position: relative; width: 280px; height: 280px;
-  display: flex; align-items: center; justify-content: center;
-}
-
+.timer-wrap { position: relative; width: 280px; height: 280px; display: flex; align-items: center; justify-content: center; }
 .timer-ring { position: absolute; top: 0; left: 0; transform: rotate(-90deg); width: 100%; height: 100%; }
 .ring-bg { fill: none; stroke: var(--border); stroke-width: 8; }
 .ring-progress { fill: none; stroke-width: 8; stroke-linecap: round; transition: stroke-dashoffset 0.5s ease, stroke 0.5s ease; }
@@ -83,84 +59,43 @@ h1 { font-size: 1.5rem; font-weight: 700; color: var(--text); }
 .timer-content { text-align: center; z-index: 1; }
 .timer-display { font-size: 4rem; font-weight: 300; letter-spacing: -2px; line-height: 1; color: var(--text); }
 .timer-mode { font-size: 0.85rem; color: var(--muted); margin-top: 0.5rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
+.timer-total { font-size: 0.72rem; color: var(--muted); margin-top: 0.25rem; opacity: 0.6; }
 
 .controls { display: flex; align-items: center; gap: 1.25rem; }
-
-.ctrl-round {
-  width: 48px; height: 48px; border-radius: 50%; border: 1.5px solid var(--border);
-  background: transparent; color: var(--text); font-size: 1.2rem;
-  cursor: pointer; transition: all 0.2s;
-}
+.ctrl-round { width: 48px; height: 48px; border-radius: 50%; border: 1.5px solid var(--border); background: transparent; color: var(--text); font-size: 1.2rem; cursor: pointer; transition: all 0.2s; }
 .ctrl-round:hover { background: var(--surface); }
 
-.play-btn {
-  width: 72px; height: 72px; border-radius: 50%; border: none;
-  color: #fff; font-size: 1.5rem; cursor: pointer;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-  transition: transform 0.2s, opacity 0.2s;
-}
+.play-btn { width: 72px; height: 72px; border-radius: 50%; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; box-shadow: 0 8px 24px rgba(0,0,0,0.3); transition: transform 0.2s, opacity 0.2s; }
 .play-btn:hover { transform: scale(1.08); opacity: 0.9; }
 .play-btn:active { transform: scale(0.96); }
 
 .stats-row { display: flex; gap: 1rem; width: 100%; }
-.stat {
-  flex: 1; background: var(--surface); border: 1px solid var(--border);
-  border-radius: 14px; padding: 0.85rem; text-align: center;
-}
+.stat { flex: 1; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 0.85rem; text-align: center; }
 .stat-val { display: block; font-size: 1.5rem; font-weight: 700; color: var(--accent); }
 .stat-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
 
 .pomodoro-dots { display: flex; gap: 0.6rem; }
-.dot {
-  width: 12px; height: 12px; border-radius: 50%;
-  background: var(--surface); border: 1.5px solid var(--border); transition: background 0.3s;
-}
+.dot { width: 12px; height: 12px; border-radius: 50%; background: var(--surface); border: 1.5px solid var(--border); transition: background 0.3s; }
 .dot.filled { border-color: transparent; }
 
-.tasks-panel {
-  width: 100%; background: var(--surface); border: 1px solid var(--border);
-  border-radius: 18px; padding: 1.25rem; animation: slideDown 0.2s ease;
-}
+.tasks-panel { width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 1.25rem; animation: slideDown 0.2s ease; }
 .tasks-panel h3 { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
 
 .task-input-row { display: flex; gap: 0.5rem; margin-bottom: 0.85rem; }
-.task-input {
-  flex: 1; padding: 0.75rem 1rem; background: var(--surface);
-  border: 1px solid var(--border); border-radius: 10px;
-  color: var(--text); font-family: 'Inter', sans-serif; font-size: 0.9rem; outline: none;
-  transition: border 0.2s;
-}
+.task-input { flex: 1; padding: 0.75rem 1rem; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-family: 'Inter', sans-serif; font-size: 0.9rem; outline: none; transition: border 0.2s; }
 .task-input:focus { border-color: var(--accent); }
 .task-input::placeholder { color: var(--muted); }
 
-.task-add-btn {
-  width: 42px; height: 42px; border: none; border-radius: 10px;
-  color: #fff; font-size: 1.3rem; cursor: pointer; transition: opacity 0.2s;
-}
+.task-add-btn { width: 42px; height: 42px; border: none; border-radius: 10px; color: #fff; font-size: 1.3rem; cursor: pointer; transition: opacity 0.2s; }
 .task-add-btn:hover { opacity: 0.85; }
 
 .task-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
 .task-empty { text-align: center; color: var(--muted); font-size: 0.85rem; padding: 1rem; }
-
-.task-item {
-  display: flex; align-items: center; gap: 0.75rem;
-  padding: 0.65rem 0.5rem; border-radius: 8px; transition: background 0.15s;
-}
+.task-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.65rem 0.5rem; border-radius: 8px; transition: background 0.15s; }
 .task-item:hover { background: var(--surface); }
-
-.task-check {
-  width: 22px; height: 22px; border-radius: 6px; border: 1.5px solid;
-  background: transparent; color: #fff; font-size: 0.7rem;
-  cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
-  transition: all 0.2s;
-}
-
+.task-check { width: 22px; height: 22px; border-radius: 6px; border: 1.5px solid; background: transparent; color: #fff; font-size: 0.7rem; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
 .task-text { flex: 1; font-size: 0.9rem; color: var(--text); transition: all 0.2s; }
 .task-item.done .task-text { text-decoration: line-through; color: var(--muted); }
-
-.task-delete {
-  background: transparent; border: none; color: var(--muted);
-  font-size: 0.75rem; cursor: pointer; opacity: 0; transition: opacity 0.2s, color 0.2s;
-}
+.task-delete { background: transparent; border: none; color: var(--muted); font-size: 0.75rem; cursor: pointer; opacity: 0; transition: opacity 0.2s, color 0.2s; }
 .task-item:hover .task-delete { opacity: 1; }
 .task-delete:hover { color: #e74c3c; }
