@@ -24,6 +24,8 @@ const SOUNDS = {
   }
 };
 
+const today = () => new Date().toDateString();
+
 export default function App() {
   const [mode, setMode] = useState("pomodoro");
   const [customTimes, setCustomTimes] = useState(DEFAULT_TIMES);
@@ -39,6 +41,13 @@ export default function App() {
   const [showThemes, setShowThemes] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [settingInputs, setSettingInputs] = useState(DEFAULT_TIMES);
+  const [showGoal, setShowGoal] = useState(false);
+  const [dailyGoal, setDailyGoal] = useState(() => parseInt(localStorage.getItem("pomoDailyGoal") || "8"));
+  const [goalInput, setGoalInput] = useState("8");
+  const [todaySessions, setTodaySessions] = useState(() => {
+    const saved = JSON.parse(localStorage.getItem("pomoTodayData") || "{}");
+    return saved.date === today() ? saved.sessions : 0;
+  });
   const intervalRef = useRef(null);
   const startTimeRef = useRef(null);
 
@@ -52,6 +61,8 @@ export default function App() {
   const currentTheme = THEMES[theme];
   const totalTime = currentMode.time;
   const progress = ((totalTime - timeLeft) / totalTime) * 100;
+  const goalProgress = Math.min((todaySessions / dailyGoal) * 100, 100);
+  const goalReached = todaySessions >= dailyGoal;
 
   useEffect(() => {
     if (running) {
@@ -63,12 +74,18 @@ export default function App() {
           clearInterval(intervalRef.current);
           setRunning(false); setTimeLeft(0);
           if (soundOn) try { SOUNDS.bell(); } catch(e) {}
-          if (mode === "pomodoro") { setSessions(s => s + 1); setTotalFocus(f => f + totalTime); }
+          if (mode === "pomodoro") {
+            setSessions(s => s + 1);
+            setTotalFocus(f => f + totalTime);
+            const newToday = todaySessions + 1;
+            setTodaySessions(newToday);
+            localStorage.setItem("pomoTodayData", JSON.stringify({ date: today(), sessions: newToday }));
+          }
         } else { setTimeLeft(remaining); }
       }, 500);
     } else { clearInterval(intervalRef.current); }
     return () => clearInterval(intervalRef.current);
-  }, [running]);
+  }, [running, todaySessions]);
 
   const switchMode = (m) => {
     setMode(m); setTimeLeft(MODES[m].time);
@@ -94,6 +111,13 @@ export default function App() {
     setTimeLeft(DEFAULT_TIMES[mode] * 60);
     setRunning(false); clearInterval(intervalRef.current);
     setShowSettings(false);
+  };
+
+  const saveGoal = () => {
+    const g = Math.max(1, Math.min(24, parseInt(goalInput) || 8));
+    setDailyGoal(g);
+    localStorage.setItem("pomoDailyGoal", String(g));
+    setShowGoal(false);
   };
 
   const format = (s) => `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
@@ -126,54 +150,80 @@ export default function App() {
           <h1>🍅 Pomodoro</h1>
           <div className="header-controls">
             <button className="icon-btn" onClick={() => setSoundOn(s => !s)}>{soundOn ? "🔊" : "🔇"}</button>
-            <button className={`icon-btn ${showSettings ? "active" : ""}`} onClick={() => { setShowSettings(s => !s); setShowThemes(false); setShowTasks(false); }}>⚙️</button>
-            <button className={`icon-btn ${showThemes ? "active" : ""}`} onClick={() => { setShowThemes(s => !s); setShowSettings(false); setShowTasks(false); }}>🎨</button>
-            <button className={`icon-btn ${showTasks ? "active" : ""}`} onClick={() => { setShowTasks(s => !s); setShowSettings(false); setShowThemes(false); }}>📋</button>
+            <button className={`icon-btn ${showGoal ? "active" : ""}`} onClick={() => { setShowGoal(s => !s); setShowSettings(false); setShowThemes(false); setShowTasks(false); }}>🎯</button>
+            <button className={`icon-btn ${showSettings ? "active" : ""}`} onClick={() => { setShowSettings(s => !s); setShowGoal(false); setShowThemes(false); setShowTasks(false); }}>⚙️</button>
+            <button className={`icon-btn ${showThemes ? "active" : ""}`} onClick={() => { setShowThemes(s => !s); setShowGoal(false); setShowSettings(false); setShowTasks(false); }}>🎨</button>
+            <button className={`icon-btn ${showTasks ? "active" : ""}`} onClick={() => { setShowTasks(s => !s); setShowGoal(false); setShowSettings(false); setShowThemes(false); }}>📋</button>
           </div>
         </header>
 
+        {/* DAILY GOAL PANEL */}
+        {showGoal && (
+          <div className="goal-panel">
+            <h3>🎯 Daily Goal</h3>
+            <p className="goal-desc">Set how many Pomodoro sessions you want to complete today.</p>
+
+            <div className="goal-progress-wrap">
+              <div className="goal-progress-bar">
+                <div className="goal-progress-fill" style={{ width: `${goalProgress}%`, background: goalReached ? "#2dc653" : currentMode.color }} />
+              </div>
+              <div className="goal-progress-label">
+                <span style={{ color: goalReached ? "#2dc653" : currentMode.color }}>
+                  {goalReached ? "🎉 Goal reached!" : `${todaySessions} / ${dailyGoal} sessions`}
+                </span>
+                <span style={{ color: "var(--muted)" }}>{Math.round(goalProgress)}%</span>
+              </div>
+            </div>
+
+            <div className="goal-dots">
+              {Array.from({ length: Math.min(dailyGoal, 12) }).map((_, i) => (
+                <div key={i} className={`goal-dot ${i < todaySessions ? "done" : ""}`}
+                  style={{ background: i < todaySessions ? (goalReached ? "#2dc653" : currentMode.color) : undefined }} />
+              ))}
+              {dailyGoal > 12 && <span className="goal-more">+{dailyGoal - 12} more</span>}
+            </div>
+
+            <div className="goal-input-row">
+              <label>Daily Goal (sessions)</label>
+              <div className="setting-input-row">
+                <button className="setting-step" onClick={() => setGoalInput(g => String(Math.max(1, (parseInt(g) || 8) - 1)))}>−</button>
+                <input className="setting-input" type="number" min="1" max="24"
+                  value={goalInput} onChange={(e) => setGoalInput(e.target.value)} />
+                <button className="setting-step" onClick={() => setGoalInput(g => String(Math.min(24, (parseInt(g) || 8) + 1)))}>+</button>
+              </div>
+            </div>
+
+            <button className="settings-apply" style={{ background: currentMode.color, width: "100%", marginTop: "0.75rem", padding: "0.75rem", border: "none", borderRadius: "12px", color: "#fff", fontFamily: "Inter, sans-serif", fontWeight: 600, fontSize: "0.9rem", cursor: "pointer" }}
+              onClick={saveGoal}>✅ Save Goal</button>
+          </div>
+        )}
+
+        {/* SETTINGS PANEL */}
         {showSettings && (
           <div className="settings-panel">
             <h3>⚙️ Timer Settings (minutes)</h3>
             <div className="settings-grid">
-              <div className="setting-item">
-                <label>🍅 Pomodoro</label>
-                <div className="setting-input-row">
-                  <button className="setting-step" onClick={() => setSettingInputs(s => ({ ...s, pomodoro: Math.max(1, (parseInt(s.pomodoro) || 25) - 1) }))}>−</button>
-                  <input className="setting-input" type="number" min="1" max="99"
-                    value={settingInputs.pomodoro}
-                    onChange={(e) => setSettingInputs(s => ({ ...s, pomodoro: e.target.value }))} />
-                  <button className="setting-step" onClick={() => setSettingInputs(s => ({ ...s, pomodoro: Math.min(99, (parseInt(s.pomodoro) || 25) + 1) }))}>+</button>
+              {[["pomodoro", "🍅 Pomodoro"], ["short", "☕ Short Break"], ["long", "🌊 Long Break"]].map(([key, label]) => (
+                <div key={key} className="setting-item">
+                  <label>{label}</label>
+                  <div className="setting-input-row">
+                    <button className="setting-step" onClick={() => setSettingInputs(s => ({ ...s, [key]: Math.max(1, (parseInt(s[key]) || 25) - 1) }))}>−</button>
+                    <input className="setting-input" type="number" min="1" max="99"
+                      value={settingInputs[key]}
+                      onChange={(e) => setSettingInputs(s => ({ ...s, [key]: e.target.value }))} />
+                    <button className="setting-step" onClick={() => setSettingInputs(s => ({ ...s, [key]: Math.min(99, (parseInt(s[key]) || 25) + 1) }))}>+</button>
+                  </div>
                 </div>
-              </div>
-              <div className="setting-item">
-                <label>☕ Short Break</label>
-                <div className="setting-input-row">
-                  <button className="setting-step" onClick={() => setSettingInputs(s => ({ ...s, short: Math.max(1, (parseInt(s.short) || 5) - 1) }))}>−</button>
-                  <input className="setting-input" type="number" min="1" max="99"
-                    value={settingInputs.short}
-                    onChange={(e) => setSettingInputs(s => ({ ...s, short: e.target.value }))} />
-                  <button className="setting-step" onClick={() => setSettingInputs(s => ({ ...s, short: Math.min(99, (parseInt(s.short) || 5) + 1) }))}>+</button>
-                </div>
-              </div>
-              <div className="setting-item">
-                <label>🌊 Long Break</label>
-                <div className="setting-input-row">
-                  <button className="setting-step" onClick={() => setSettingInputs(s => ({ ...s, long: Math.max(1, (parseInt(s.long) || 15) - 1) }))}>−</button>
-                  <input className="setting-input" type="number" min="1" max="99"
-                    value={settingInputs.long}
-                    onChange={(e) => setSettingInputs(s => ({ ...s, long: e.target.value }))} />
-                  <button className="setting-step" onClick={() => setSettingInputs(s => ({ ...s, long: Math.min(99, (parseInt(s.long) || 15) + 1) }))}>+</button>
-                </div>
-              </div>
+              ))}
             </div>
             <div className="settings-btns">
               <button className="settings-apply" style={{ background: currentMode.color }} onClick={applySettings}>✅ Apply</button>
-              <button className="settings-reset" onClick={resetSettings}>↺ Reset to Default</button>
+              <button className="settings-reset" onClick={resetSettings}>↺ Reset</button>
             </div>
           </div>
         )}
 
+        {/* THEMES PANEL */}
         {showThemes && (
           <div className="themes-panel">
             {Object.entries(THEMES).map(([key, val]) => (
@@ -207,13 +257,24 @@ export default function App() {
         </div>
 
         <div className="controls">
-          <button className="ctrl-round" onClick={reset} title="Reset">↺</button>
+          <button className="ctrl-round" onClick={reset}>↺</button>
           <button className="play-btn" onClick={() => setRunning(r => !r)} style={{ background: currentMode.color }}>
             {running ? "⏸" : "▶"}
           </button>
           <button className="ctrl-round" onClick={() => switchMode(
             mode === "pomodoro" ? "short" : mode === "short" ? "long" : "pomodoro"
-          )} title="Next">⏭</button>
+          )}>⏭</button>
+        </div>
+
+        {/* GOAL MINI BAR */}
+        <div className="goal-mini" onClick={() => { setShowGoal(s => !s); setShowSettings(false); setShowThemes(false); setShowTasks(false); }}>
+          <div className="goal-mini-label">
+            <span>🎯 Today: {todaySessions}/{dailyGoal}</span>
+            <span style={{ color: goalReached ? "#2dc653" : "var(--muted)" }}>{goalReached ? "✅ Done!" : `${Math.round(goalProgress)}%`}</span>
+          </div>
+          <div className="goal-mini-bar">
+            <div className="goal-mini-fill" style={{ width: `${goalProgress}%`, background: goalReached ? "#2dc653" : currentMode.color }} />
+          </div>
         </div>
 
         <div className="stats-row">
@@ -248,7 +309,7 @@ export default function App() {
               <button className="task-add-btn" style={{ background: currentMode.color }} onClick={addTask}>+</button>
             </div>
             <ul className="task-list">
-              {tasks.length === 0 && <li className="task-empty">No tasks yet. Add one above!</li>}
+              {tasks.length === 0 && <li className="task-empty">No tasks yet!</li>}
               {tasks.map(task => (
                 <li key={task.id} className={`task-item ${task.done ? "done" : ""}`}>
                   <button className="task-check" onClick={() => toggleTask(task.id)}

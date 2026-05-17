@@ -2,9 +2,7 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { min-height: 100vh; font-family: 'Inter', sans-serif; display: flex; align-items: center; justify-content: center; }
-
 .app { min-height: 100vh; width: 100%; display: flex; align-items: center; justify-content: center; padding: 1rem; transition: background 0.5s, color 0.3s; }
-
 .container { width: 100%; max-width: 420px; display: flex; flex-direction: column; align-items: center; gap: 1.25rem; animation: fadeUp 0.4s ease; }
 
 @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -12,28 +10,49 @@ body { min-height: 100vh; font-family: 'Inter', sans-serif; display: flex; align
 
 header { width: 100%; display: flex; justify-content: space-between; align-items: center; }
 h1 { font-size: 1.5rem; font-weight: 700; color: var(--text); }
-.header-controls { display: flex; gap: 0.5rem; }
+.header-controls { display: flex; gap: 0.4rem; }
 
-.icon-btn { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; width: 38px; height: 38px; font-size: 1rem; cursor: pointer; transition: background 0.2s; color: var(--text); }
+.icon-btn { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; width: 36px; height: 36px; font-size: 0.95rem; cursor: pointer; transition: background 0.2s; color: var(--text); }
 .icon-btn:hover { opacity: 0.8; }
 .icon-btn.active { background: var(--accent); border-color: var(--accent); }
+
+/* GOAL PANEL */
+.goal-panel { width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 1.25rem; animation: slideDown 0.2s ease; }
+.goal-panel h3 { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+.goal-desc { font-size: 0.82rem; color: var(--muted); margin-bottom: 1rem; }
+
+.goal-progress-wrap { margin-bottom: 0.75rem; }
+.goal-progress-bar { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 0.4rem; }
+.goal-progress-fill { height: 100%; border-radius: 4px; transition: width 0.5s ease, background 0.3s; }
+.goal-progress-label { display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 600; }
+
+.goal-dots { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+.goal-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--surface); border: 1.5px solid var(--border); transition: background 0.3s; }
+.goal-dot.done { border-color: transparent; }
+.goal-more { font-size: 0.75rem; color: var(--muted); align-self: center; }
+
+.goal-input-row { display: flex; justify-content: space-between; align-items: center; }
+.goal-input-row label { font-size: 0.9rem; color: var(--text); font-weight: 500; }
+
+/* GOAL MINI BAR */
+.goal-mini { width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 0.75rem 1rem; cursor: pointer; transition: opacity 0.2s; }
+.goal-mini:hover { opacity: 0.8; }
+.goal-mini-label { display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 600; color: var(--text); margin-bottom: 0.4rem; }
+.goal-mini-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+.goal-mini-fill { height: 100%; border-radius: 3px; transition: width 0.5s ease, background 0.3s; }
 
 /* SETTINGS */
 .settings-panel { width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 1.25rem; animation: slideDown 0.2s ease; }
 .settings-panel h3 { font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.5px; }
-
 .settings-grid { display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 1rem; }
 .setting-item { display: flex; justify-content: space-between; align-items: center; }
 .setting-item label { font-size: 0.9rem; color: var(--text); font-weight: 500; }
-
 .setting-input-row { display: flex; align-items: center; gap: 0.5rem; }
 .setting-step { width: 32px; height: 32px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text); font-size: 1.1rem; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
 .setting-step:hover { border-color: var(--accent); color: var(--accent); }
-
 .setting-input { width: 56px; text-align: center; padding: 0.4rem; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 600; outline: none; }
 .setting-input:focus { border-color: var(--accent); }
 .setting-input::-webkit-inner-spin-button { -webkit-appearance: none; }
-
 .settings-btns { display: flex; gap: 0.5rem; }
 .settings-apply { flex: 1; padding: 0.75rem; border: none; border-radius: 12px; color: #fff; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: opacity 0.2s; }
 .settings-apply:hover { opacity: 0.85; }
@@ -55,7 +74,6 @@ h1 { font-size: 1.5rem; font-weight: 700; color: var(--text); }
 .timer-ring { position: absolute; top: 0; left: 0; transform: rotate(-90deg); width: 100%; height: 100%; }
 .ring-bg { fill: none; stroke: var(--border); stroke-width: 8; }
 .ring-progress { fill: none; stroke-width: 8; stroke-linecap: round; transition: stroke-dashoffset 0.5s ease, stroke 0.5s ease; }
-
 .timer-content { text-align: center; z-index: 1; }
 .timer-display { font-size: 4rem; font-weight: 300; letter-spacing: -2px; line-height: 1; color: var(--text); }
 .timer-mode { font-size: 0.85rem; color: var(--muted); margin-top: 0.5rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
@@ -64,7 +82,6 @@ h1 { font-size: 1.5rem; font-weight: 700; color: var(--text); }
 .controls { display: flex; align-items: center; gap: 1.25rem; }
 .ctrl-round { width: 48px; height: 48px; border-radius: 50%; border: 1.5px solid var(--border); background: transparent; color: var(--text); font-size: 1.2rem; cursor: pointer; transition: all 0.2s; }
 .ctrl-round:hover { background: var(--surface); }
-
 .play-btn { width: 72px; height: 72px; border-radius: 50%; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; box-shadow: 0 8px 24px rgba(0,0,0,0.3); transition: transform 0.2s, opacity 0.2s; }
 .play-btn:hover { transform: scale(1.08); opacity: 0.9; }
 .play-btn:active { transform: scale(0.96); }
@@ -80,15 +97,12 @@ h1 { font-size: 1.5rem; font-weight: 700; color: var(--text); }
 
 .tasks-panel { width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 1.25rem; animation: slideDown 0.2s ease; }
 .tasks-panel h3 { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
-
 .task-input-row { display: flex; gap: 0.5rem; margin-bottom: 0.85rem; }
 .task-input { flex: 1; padding: 0.75rem 1rem; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-family: 'Inter', sans-serif; font-size: 0.9rem; outline: none; transition: border 0.2s; }
 .task-input:focus { border-color: var(--accent); }
 .task-input::placeholder { color: var(--muted); }
-
 .task-add-btn { width: 42px; height: 42px; border: none; border-radius: 10px; color: #fff; font-size: 1.3rem; cursor: pointer; transition: opacity 0.2s; }
 .task-add-btn:hover { opacity: 0.85; }
-
 .task-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
 .task-empty { text-align: center; color: var(--muted); font-size: 0.85rem; padding: 1rem; }
 .task-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.65rem 0.5rem; border-radius: 8px; transition: background 0.15s; }
