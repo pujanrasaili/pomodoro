@@ -12,29 +12,43 @@ header { width: 100%; display: flex; justify-content: space-between; align-items
 h1 { font-size: 1.5rem; font-weight: 700; color: var(--text); }
 .header-controls { display: flex; gap: 0.4rem; }
 
-.icon-btn { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; width: 36px; height: 36px; font-size: 0.95rem; cursor: pointer; transition: background 0.2s; color: var(--text); }
+.icon-btn { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; width: 36px; height: 36px; font-size: 0.9rem; cursor: pointer; transition: background 0.2s; color: var(--text); }
 .icon-btn:hover { opacity: 0.8; }
 .icon-btn.active { background: var(--accent); border-color: var(--accent); }
 
-/* GOAL PANEL */
+/* HISTORY */
+.history-panel { width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 1.25rem; animation: slideDown 0.2s ease; }
+.history-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
+.history-header h3 { font-size: 0.85rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+.clear-btn { background: none; border: none; color: #e74c3c; font-size: 0.78rem; cursor: pointer; font-family: 'Inter', sans-serif; }
+.history-empty { text-align: center; color: var(--muted); font-size: 0.85rem; padding: 1rem; }
+.history-list { max-height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.75rem; }
+.history-day { display: flex; flex-direction: column; gap: 0.35rem; }
+.history-date { font-size: 0.72rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; padding-bottom: 0.25rem; border-bottom: 1px solid var(--border); }
+.history-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0; }
+.history-type { flex: 1; font-size: 0.85rem; color: var(--text); font-weight: 500; }
+.history-duration { font-size: 0.78rem; color: var(--accent); font-weight: 600; }
+.history-time { font-size: 0.72rem; color: var(--muted); min-width: 45px; text-align: right; }
+.history-day-summary { font-size: 0.72rem; color: var(--muted); padding-top: 0.25rem; }
+
+/* GOAL */
 .goal-panel { width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 1.25rem; animation: slideDown 0.2s ease; }
 .goal-panel h3 { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
 .goal-desc { font-size: 0.82rem; color: var(--muted); margin-bottom: 1rem; }
-
 .goal-progress-wrap { margin-bottom: 0.75rem; }
 .goal-progress-bar { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 0.4rem; }
 .goal-progress-fill { height: 100%; border-radius: 4px; transition: width 0.5s ease, background 0.3s; }
 .goal-progress-label { display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 600; }
-
 .goal-dots { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
 .goal-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--surface); border: 1.5px solid var(--border); transition: background 0.3s; }
 .goal-dot.done { border-color: transparent; }
 .goal-more { font-size: 0.75rem; color: var(--muted); align-self: center; }
-
-.goal-input-row { display: flex; justify-content: space-between; align-items: center; }
+.goal-input-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
 .goal-input-row label { font-size: 0.9rem; color: var(--text); font-weight: 500; }
+.save-goal-btn { width: 100%; padding: 0.75rem; border: none; border-radius: 12px; color: #fff; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: opacity 0.2s; }
+.save-goal-btn:hover { opacity: 0.85; }
 
-/* GOAL MINI BAR */
+/* GOAL MINI */
 .goal-mini { width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 0.75rem 1rem; cursor: pointer; transition: opacity 0.2s; }
 .goal-mini:hover { opacity: 0.8; }
 .goal-mini-label { display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 600; color: var(--text); margin-bottom: 0.4rem; }
