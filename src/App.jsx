@@ -51,6 +51,7 @@ export default function App() {
   });
   const [showHistory, setShowHistory] = useState(false);
   const [history, setHistory] = useState(() => JSON.parse(localStorage.getItem("pomoHistory") || "[]"));
+  const [autoStart, setAutoStart] = useState(() => localStorage.getItem("pomoAutoStart") === "true");
   const intervalRef = useRef(null);
   const startTimeRef = useRef(null);
 
@@ -78,7 +79,8 @@ export default function App() {
           setRunning(false); setTimeLeft(0);
           if (soundOn) try { SOUNDS.bell(); } catch(e) {}
           if (mode === "pomodoro") {
-            setSessions(s => s + 1);
+            const newSessions = sessions + 1;
+            setSessions(newSessions);
             setTotalFocus(f => f + totalTime);
             const newToday = todaySessions + 1;
             setTodaySessions(newToday);
@@ -87,11 +89,22 @@ export default function App() {
             const newHistory = [entry, ...history].slice(0, 50);
             setHistory(newHistory);
             localStorage.setItem("pomoHistory", JSON.stringify(newHistory));
+            const nextM = newSessions % 4 === 0 ? "long" : "short";
+            if (autoStart) {
+              setTimeout(() => { setMode(nextM); setTimeLeft(MODES[nextM].time); setRunning(true); }, 1500);
+            } else {
+              switchMode(nextM);
+            }
           } else {
             const entry = { type: mode === "short" ? "☕ Short Break" : "🌊 Long Break", duration: customTimes[mode], date: today(), time: timeStr() };
             const newHistory = [entry, ...history].slice(0, 50);
             setHistory(newHistory);
             localStorage.setItem("pomoHistory", JSON.stringify(newHistory));
+            if (autoStart) {
+              setTimeout(() => { setMode("pomodoro"); setTimeLeft(MODES.pomodoro.time); setRunning(true); }, 1500);
+            } else {
+              switchMode("pomodoro");
+            }
           }
         } else { setTimeLeft(remaining); }
       }, 500);
@@ -249,7 +262,16 @@ export default function App() {
                     <button className="setting-step" onClick={() => setSettingInputs(s => ({ ...s, [key]: Math.min(99, (parseInt(s[key]) || 25) + 1) }))}>+</button>
                   </div>
                 </div>
+                
               ))}
+            </div>
+              <div className="setting-item" style={{ marginBottom: "0.5rem" }}>
+              <label>🤖 Auto start next session</label>
+              <button className={`toggle-btn ${autoStart ? "on" : ""}`}
+                style={{ background: autoStart ? currentMode.color : "transparent" }}
+                onClick={() => { setAutoStart(a => { const n = !a; localStorage.setItem("pomoAutoStart", String(n)); return n; }); }}>
+                {autoStart ? "ON" : "OFF"}
+              </button>
             </div>
             <div className="settings-btns">
               <button className="settings-apply" style={{ background: currentMode.color }} onClick={applySettings}>✅ Apply</button>

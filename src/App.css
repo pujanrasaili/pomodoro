@@ -127,3 +127,12 @@ h1 { font-size: 1.5rem; font-weight: 700; color: var(--text); }
 .task-delete { background: transparent; border: none; color: var(--muted); font-size: 0.75rem; cursor: pointer; opacity: 0; transition: opacity 0.2s, color 0.2s; }
 .task-item:hover .task-delete { opacity: 1; }
 .task-delete:hover { color: #e74c3c; }
+/* TOGGLE */
+.toggle-btn {
+  padding: 0.35rem 0.85rem; border: 1.5px solid var(--border);
+  border-radius: 20px; color: #fff; font-family: 'Inter', sans-serif;
+  font-size: 0.78rem; font-weight: 700; cursor: pointer; transition: all 0.2s;
+  min-width: 52px;
+}
+.toggle-btn:not(.on) { color: var(--muted); }
+.toggle-btn.on { border-color: var(--accent); }
