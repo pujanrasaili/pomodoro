@@ -11,6 +11,20 @@ A beautiful, feature-rich Pomodoro Timer app built with React + Vite.
 - 🔄 **Reset & Skip** buttons
 - 🔔 **Sound alert** when timer ends
 - 🔇 **Mute toggle** for sound
+- 🤖 **Auto start** next session automatically
+
+### 💬 Motivational Quotes
+- 💬 **20 motivational quotes** from great minds
+- 🔄 **Tap to change** quote anytime
+- ✨ Smooth animation on change
+
+### 📊 History Log
+- 📊 **Session history** — see all past sessions
+- 📅 **Grouped by day** — easy to read
+- ⏰ **Time stamp** for each session
+- 📋 **Daily summary** — pomodoros & focus time per day
+- 🗑️ **Clear history** button
+- 💾 **Saves to localStorage** — persists across refreshes
 
 ### 🎯 Daily Goal Tracker
 - 🎯 **Set daily session goal** — decide how many sessions to complete
@@ -23,6 +37,7 @@ A beautiful, feature-rich Pomodoro Timer app built with React + Vite.
 ### ⚙️ Custom Settings
 - ✏️ **Change durations** for all 3 modes
 - ➕➖ **Step buttons** to increase/decrease easily
+- 🤖 **Auto start toggle** — on/off
 - ✅ **Apply** to save changes instantly
 - ↺ **Reset to default** anytime
 
@@ -60,7 +75,7 @@ A beautiful, feature-rich Pomodoro Timer app built with React + Vite.
 - [Vite](https://vitejs.dev/) — lightning-fast bundler
 - Web Audio API — for sound alerts
 - CSS Variables — for dynamic theming
-- localStorage — for goal persistence
+- localStorage — for history & goal persistence
 
 ## 📦 Getting Started
 
@@ -77,15 +92,17 @@ npm run build
 
 ## 🎮 How to Use
 
-1. Click **🎯** to set your daily session goal
-2. Click **⚙️** to customize timer durations
-3. Click **🎨** to pick your favorite theme
-4. Click **▶** to start the timer
-5. Work until the timer ends 🔔
-6. Take a **Short Break** (5 min)
-7. Repeat 4 times then take a **Long Break** (15 min)
-8. Track your tasks in the **📋 Tasks** panel
-9. Watch your daily goal progress! 🎯
+1. Click **📊** to view your session history
+2. Click **🎯** to set your daily session goal
+3. Click **⚙️** to customize timer & enable auto start
+4. Click **🎨** to pick your favorite theme
+5. Click **▶** to start the timer
+6. Work until the timer ends 🔔
+7. Take a **Short Break** (5 min)
+8. Repeat 4 times then take a **Long Break** (15 min)
+9. Tap the **quote card** for motivation 💬
+10. Track your tasks in the **📋 Tasks** panel
+11. Watch your daily goal progress! 🎯
 
 ## ⚙️ Default Timer Settings
 
