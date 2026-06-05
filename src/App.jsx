@@ -26,6 +26,28 @@ const SOUNDS = {
 
 const today = () => new Date().toDateString();
 const timeStr = () => new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+const QUOTES = [
+  { text: "The secret of getting ahead is getting started.", author: "Mark Twain" },
+  { text: "Focus on being productive instead of busy.", author: "Tim Ferriss" },
+  { text: "You don't have to be great to start, but you have to start to be great.", author: "Zig Ziglar" },
+  { text: "The way to get started is to quit talking and begin doing.", author: "Walt Disney" },
+  { text: "It always seems impossible until it's done.", author: "Nelson Mandela" },
+  { text: "Don't watch the clock; do what it does. Keep going.", author: "Sam Levenson" },
+  { text: "Success is the sum of small efforts repeated day in and day out.", author: "Robert Collier" },
+  { text: "The future depends on what you do today.", author: "Mahatma Gandhi" },
+  { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
+  { text: "Hard work beats talent when talent doesn't work hard.", author: "Tim Notke" },
+  { text: "Start where you are. Use what you have. Do what you can.", author: "Arthur Ashe" },
+  { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+  { text: "Push yourself, because no one else is going to do it for you.", author: "Unknown" },
+  { text: "Great things never come from comfort zones.", author: "Unknown" },
+  { text: "Dream it. Wish it. Do it.", author: "Unknown" },
+  { text: "Stay focused and never give up.", author: "Unknown" },
+  { text: "Small steps every day lead to big results.", author: "Unknown" },
+  { text: "Your only limit is your mind.", author: "Unknown" },
+  { text: "Work hard in silence, let success make the noise.", author: "Unknown" },
+  { text: "One session at a time. You've got this! 🍅", author: "Pomodoro Timer" },
+];
 
 export default function App() {
   const [mode, setMode] = useState("pomodoro");
@@ -52,6 +74,7 @@ export default function App() {
   const [showHistory, setShowHistory] = useState(false);
   const [history, setHistory] = useState(() => JSON.parse(localStorage.getItem("pomoHistory") || "[]"));
   const [autoStart, setAutoStart] = useState(() => localStorage.getItem("pomoAutoStart") === "true");
+  const [quote, setQuote] = useState(() => QUOTES[Math.floor(Math.random() * QUOTES.length)]);
   const intervalRef = useRef(null);
   const startTimeRef = useRef(null);
 
@@ -311,6 +334,12 @@ export default function App() {
           <button className="ctrl-round" onClick={reset}>↺</button>
           <button className="play-btn" onClick={() => setRunning(r => !r)} style={{ background: currentMode.color }}>{running ? "⏸" : "▶"}</button>
           <button className="ctrl-round" onClick={() => switchMode(mode === "pomodoro" ? "short" : mode === "short" ? "long" : "pomodoro")}>⏭</button>
+        </div>
+
+        <div className="quote-card" onClick={() => setQuote(QUOTES[Math.floor(Math.random() * QUOTES.length)])}>
+          <div className="quote-text">"{quote.text}"</div>
+          <div className="quote-author">— {quote.author}</div>
+          <div className="quote-hint">tap for new quote</div>
         </div>
 
         <div className="goal-mini" onClick={() => { setShowGoal(s => !s); closeAll("goal"); }}>
