@@ -127,6 +127,7 @@ h1 { font-size: 1.5rem; font-weight: 700; color: var(--text); }
 .task-delete { background: transparent; border: none; color: var(--muted); font-size: 0.75rem; cursor: pointer; opacity: 0; transition: opacity 0.2s, color 0.2s; }
 .task-item:hover .task-delete { opacity: 1; }
 .task-delete:hover { color: #e74c3c; }
+
 /* TOGGLE */
 .toggle-btn {
   padding: 0.35rem 0.85rem; border: 1.5px solid var(--border);
@@ -136,3 +137,14 @@ h1 { font-size: 1.5rem; font-weight: 700; color: var(--text); }
 }
 .toggle-btn:not(.on) { color: var(--muted); }
 .toggle-btn.on { border-color: var(--accent); }
+
+/* QUOTES */
+.quote-card {
+  width: 100%; background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 1rem 1.25rem; cursor: pointer;
+  transition: opacity 0.2s; text-align: center; animation: slideDown 0.3s ease;
+}
+.quote-card:hover { opacity: 0.8; }
+.quote-text { font-size: 0.88rem; color: var(--text); line-height: 1.5; font-style: italic; margin-bottom: 0.5rem; }
+.quote-author { font-size: 0.75rem; color: var(--accent); font-weight: 600; margin-bottom: 0.25rem; }
+.quote-hint { font-size: 0.68rem; color: var(--muted); }
