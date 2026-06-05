@@ -67,7 +67,7 @@ A beautiful, feature-rich Pomodoro Timer app built with React + Vite.
 
 ## 🚀 Live Demo
 
-👉 [Your Vercel URL here]
+👉 [pomodoro-iota-pink.vercel.app](https://pomodoro-iota-pink.vercel.app)
 
 ## 🛠 Tech Stack
 
