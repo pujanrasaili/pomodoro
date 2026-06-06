@@ -148,3 +148,57 @@ h1 { font-size: 1.5rem; font-weight: 700; color: var(--text); }
 .quote-text { font-size: 0.88rem; color: var(--text); line-height: 1.5; font-style: italic; margin-bottom: 0.5rem; }
 .quote-author { font-size: 0.75rem; color: var(--accent); font-weight: 600; margin-bottom: 0.25rem; }
 .quote-hint { font-size: 0.68rem; color: var(--muted); }
+
+/* FOCUS MODE */
+.focus-overlay {
+  position: fixed; inset: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg);
+  animation: fadeUp 0.3s ease;
+}
+
+.focus-mode-timer { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+
+.focus-display {
+  font-size: 8rem; font-weight: 200; color: var(--text);
+  letter-spacing: -4px; line-height: 1;
+  animation: focusPulse 2s ease infinite alternate;
+}
+
+@keyframes focusPulse {
+  from { opacity: 1; }
+  to { opacity: 0.7; }
+}
+
+.focus-mode-label {
+  font-size: 1rem; color: var(--muted); text-transform: uppercase;
+  letter-spacing: 3px; font-weight: 500;
+}
+
+.focus-controls { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+
+.focus-play {
+  width: 90px; height: 90px; border-radius: 50%; border: none;
+  color: #fff; font-size: 2rem; cursor: pointer;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  transition: transform 0.2s, opacity 0.2s;
+}
+.focus-play:hover { transform: scale(1.08); opacity: 0.9; }
+.focus-play:active { transform: scale(0.96); }
+
+.focus-exit {
+  background: transparent; border: 1px solid var(--border);
+  border-radius: 20px; padding: 0.5rem 1.25rem;
+  color: var(--muted); font-family: 'Inter', sans-serif;
+  font-size: 0.82rem; cursor: pointer; transition: all 0.2s;
+}
+.focus-exit:hover { color: var(--text); border-color: var(--text); }
+
+.focus-streak {
+  font-size: 1.2rem; font-weight: 700;
+  background: linear-gradient(135deg, #ff6b35, #f7c59f);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: streakPulse 0.5s ease infinite alternate;
+}

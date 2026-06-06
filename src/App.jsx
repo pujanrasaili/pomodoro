@@ -75,6 +75,7 @@ export default function App() {
   const [history, setHistory] = useState(() => JSON.parse(localStorage.getItem("pomoHistory") || "[]"));
   const [autoStart, setAutoStart] = useState(() => localStorage.getItem("pomoAutoStart") === "true");
   const [quote, setQuote] = useState(() => QUOTES[Math.floor(Math.random() * QUOTES.length)]);
+  const [focusMode, setFocusMode] = useState(false);
   const intervalRef = useRef(null);
   const startTimeRef = useRef(null);
 
@@ -188,16 +189,17 @@ export default function App() {
   }, {});
 
   return (
-    <div className="app" style={{
+    <div className={`app ${focusMode ? "focus-mode" : ""}`} style={{
       "--accent": currentMode.color, "--bg": currentTheme.bg, "--surface": currentTheme.surface,
       "--text": currentTheme.text, "--muted": currentTheme.muted, "--border": currentTheme.border, "--glow": currentTheme.glow,
       background: `radial-gradient(ellipse at top, ${currentTheme.glow}, ${currentTheme.bg})`, color: currentTheme.text,
     }}>
       <div className="container">
-        <header>
+          <header>
           <h1>🍅 Pomodoro</h1>
           <div className="header-controls">
             <button className="icon-btn" onClick={() => setSoundOn(s => !s)}>{soundOn ? "🔊" : "🔇"}</button>
+            <button className={`icon-btn ${focusMode ? "active" : ""}`} onClick={() => setFocusMode(f => !f)} title="Focus Mode">🎯</button>
             <button className={`icon-btn ${showHistory ? "active" : ""}`} onClick={() => { setShowHistory(s => !s); closeAll("history"); }}>📊</button>
             <button className={`icon-btn ${showGoal ? "active" : ""}`} onClick={() => { setShowGoal(s => !s); closeAll("goal"); }}>🎯</button>
             <button className={`icon-btn ${showSettings ? "active" : ""}`} onClick={() => { setShowSettings(s => !s); closeAll("settings"); }}>⚙️</button>
@@ -318,6 +320,22 @@ export default function App() {
           ))}
         </div>
 
+        {focusMode && (
+          <div className="focus-overlay">
+            <div className="focus-mode-timer">
+              <div className="focus-display">{format(timeLeft)}</div>
+              <div className="focus-mode-label">{currentMode.label}</div>
+              <div className="focus-controls">
+                <button className="focus-play" onClick={() => setRunning(r => !r)} style={{ background: currentMode.color }}>
+                  {running ? "⏸" : "▶"}
+                </button>
+                <button className="focus-exit" onClick={() => setFocusMode(false)}>✕ Exit Focus</button>
+              </div>
+              {streak >= 2 && <div className="focus-streak">🔥 {streak} streak!</div>}
+            </div>
+          </div>
+        )}
+        
         <div className="timer-wrap">
           <svg className="timer-ring" viewBox="0 0 280 280">
             <circle cx="140" cy="140" r="120" className="ring-bg" />
