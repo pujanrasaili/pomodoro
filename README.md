@@ -14,7 +14,7 @@ A beautiful, feature-rich Pomodoro Timer built with React + Vite to help you sta
 * 🔇 **Mute toggle** for sound
 * 🤖 **Auto start** next session automatically
 
-### 🖥 Fullscreen Focus Mode (NEW)
+### 🖥 Fullscreen Focus Mode
 
 * 🎯 Distraction-free fullscreen experience
 * ⏱ Large timer display for maximum focus
