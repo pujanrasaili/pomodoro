@@ -191,3 +191,7 @@ MIT License
 ---
 
 Made with ❤️ using React + Vite
+
+
+## 👨‍💻 Author
+**Pujan Rasaili**
