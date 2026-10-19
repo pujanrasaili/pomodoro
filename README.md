@@ -1,97 +1,97 @@
-# ⏰ Pomodoro Timer
+# Pomodoro Timer
 
 A beautiful, feature-rich Pomodoro Timer built with React + Vite to help you stay focused, track progress, and achieve your study or work goals.
 
-## ✨ Features
+## Features
 
-### ⏱ Timer
+### Timer
 
-* 🍅 **Pomodoro** — 25 minute focus sessions (customizable)
-* ☕ **Short Break** — 5 minute breaks (customizable)
-* 🌊 **Long Break** — 15 minute breaks (customizable)
-* 🔄 **Reset & Skip** buttons
-* 🔔 **Sound alert** when timer ends
-* 🔇 **Mute toggle** for sound
-* 🤖 **Auto start** next session automatically
+* **Pomodoro** — 25 minute focus sessions (customizable)
+* **Short Break** — 5 minute breaks (customizable)
+* **Long Break** — 15 minute breaks (customizable)
+* **Reset & Skip** buttons
+* **Sound alert** when timer ends
+* **Mute toggle** for sound
+* **Auto start** next session automatically
 
-### 🖥 Fullscreen Focus Mode
+### Fullscreen Focus Mode
 
-* 🎯 Distraction-free fullscreen experience
-* ⏱ Large timer display for maximum focus
-* 🌙 Clean minimalist interface
-* ⌨️ Easy enter/exit fullscreen mode
-* 🚀 Perfect for deep work and study sessions
+* Distraction-free fullscreen experience
+* Large timer display for maximum focus
+* Clean minimalist interface
+* Easy enter/exit fullscreen mode
+* Perfect for deep work and study sessions
 
-### 💬 Motivational Quotes
+### Motivational Quotes
 
-* 💬 20 motivational quotes
-* 🔄 Tap to change quote anytime
-* ✨ Smooth animation effects
+* 20 motivational quotes
+* Tap to change quote anytime
+* Smooth animation effects
 
-### 📊 History Log
+### History Log
 
-* 📅 Session history grouped by day
-* ⏰ Timestamp for every completed session
-* 📋 Daily summary with focus time
-* 🗑️ Clear history option
-* 💾 Stored in localStorage
+* Session history grouped by day
+* Timestamp for every completed session
+* Daily summary with focus time
+* Clear history option
+* Stored in localStorage
 
-### 🎯 Daily Goal Tracker
+### Daily Goal Tracker
 
-* 🎯 Set custom daily session goals
-* 📊 Progress bar with percentage
-* 🔴 Goal progress dots
-* 🎉 Goal completion celebration
-* 📍 Mini goal tracker always visible
-* 💾 Stored in localStorage
+* Set custom daily session goals
+* Progress bar with percentage
+* Goal progress dots
+* Goal completion celebration
+* Mini goal tracker always visible
+* Stored in localStorage
 
-### ⚙️ Custom Settings
+### Custom Settings
 
-* ✏️ Customize Pomodoro duration
-* ✏️ Customize Short Break duration
-* ✏️ Customize Long Break duration
-* ➕➖ Quick increase/decrease controls
-* 🤖 Auto-start toggle
-* ✅ Apply changes instantly
-* ↺ Reset to defaults anytime
+* Customize Pomodoro duration
+* Customize Short Break duration
+* Customize Long Break duration
+* Quick increase/decrease controls
+* Auto-start toggle
+* Apply changes instantly
+* Reset to defaults anytime
 
-### 🎨 Themes
+### Themes
 
-* 🌙 Dark Theme
-* ☀️ Light Theme
-* 🌿 Forest Theme
-* 🌊 Ocean Theme
+* Dark Theme
+* Light Theme
+* Forest Theme
+* Ocean Theme
 
-### 📈 Productivity Stats
+### Productivity Stats
 
-* ✅ Completed sessions counter
-* ⏱ Total focus time tracker
-* 🎯 Sets completed counter
-* 🔴 Visual progress indicators
+* Completed sessions counter
+* Total focus time tracker
+* Sets completed counter
+* Visual progress indicators
 
-### 📋 Task Manager
+### Task Manager
 
-* ➕ Add tasks quickly
-* ✅ Mark tasks as complete
-* 🗑️ Delete tasks
-* ⌨️ Press Enter to add tasks
+* Add tasks quickly
+* Mark tasks as complete
+* Delete tasks
+* Press Enter to add tasks
 
-### 🎨 User Experience
+### User Experience
 
-* ⭕ Animated circular progress ring
-* 🎨 Dynamic colors for each mode
-* 💫 Smooth animations and transitions
-* 📱 Responsive design for desktop and mobile
-
----
-
-## 🚀 Live Demo
-
-👉 https://pomodoro-iota-pink.vercel.app
+* Animated circular progress ring
+* Dynamic colors for each mode
+* Smooth animations and transitions
+* Responsive design for desktop and mobile
 
 ---
 
-## 🛠 Tech Stack
+## Live Demo
+
+https://pomodoro-iota-pink.vercel.app
+
+---
+
+## Tech Stack
 
 * React
 * Vite
@@ -102,7 +102,7 @@ A beautiful, feature-rich Pomodoro Timer built with React + Vite to help you sta
 
 ---
 
-## 📦 Installation
+## Installation
 
 ```bash
 # Clone repository
@@ -120,19 +120,19 @@ npm run build
 
 ---
 
-## 🎮 How to Use
+## How to Use
 
-1. Click ▶ Start to begin a Pomodoro session
-2. Focus until the timer ends 🔔
-3. Take a Short Break ☕
+1. Click Start to begin a Pomodoro session
+2. Focus until the timer ends 
+3. Take a Short Break 
 4. Repeat four sessions
-5. Take a Long Break 🌊
-6. Click 🎯 to manage goals
-7. Click 📊 to view history
-8. Click ⚙️ to customize settings
-9. Click 🎨 to switch themes
-10. Click 🖥 to enter Fullscreen Focus Mode
-11. Stay productive and track progress 🚀
+5. Take a Long Break 
+6. Click to manage goals
+7. Click to view history
+8. Click to customize settings
+9. Click to switch themes
+10. Click to enter Fullscreen Focus Mode
+11. Stay productive and track progress 
 
 ---
 
@@ -140,24 +140,24 @@ npm run build
 
 | Mode          | Duration |
 | ------------- | -------- |
-| 🍅 Pomodoro   | 25 min   |
-| ☕ Short Break | 5 min    |
-| 🌊 Long Break | 15 min   |
+| Pomodoro   | 25 min   |
+| Short Break | 5 min    |
+| Long Break | 15 min   |
 
 ---
 
-## 🎨 Available Themes
+## Available Themes
 
 | Theme     | Description                 |
 | --------- | --------------------------- |
-| 🌙 Dark   | Classic dark interface      |
-| ☀️ Light  | Clean bright interface      |
-| 🌿 Forest | Nature-inspired green theme |
-| 🌊 Ocean  | Deep blue ocean theme       |
+| Dark   | Classic dark interface      |
+| Light  | Clean bright interface      |
+| Forest | Nature-inspired green theme |
+| Ocean  | Deep blue ocean theme       |
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```text
 pomodoro/
@@ -173,7 +173,7 @@ pomodoro/
 
 ---
 
-## 🎯 Ideal For
+## Ideal For
 
 * Students
 * Developers
@@ -184,14 +184,14 @@ pomodoro/
 
 ---
 
-## 📄 License
+## License
 
 MIT License
 
 ---
 
-Made with ❤️ using React + Vite
+Made with using React + Vite
 
 
-## 👨‍💻 Author
+## Author
 **Pujan Rasaili**
